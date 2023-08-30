@@ -6,22 +6,28 @@ interface UserPayload {
     email: string;
 }
 
-// augment the Request Type Definition to have an optional currentUser object
 declare global {
     namespace Express {
         interface Request {
-            currentUser?: UserPayload
+            currentUser?: UserPayload;
         }
     }
 }
 
-export const currentUser = (req: Request, res: Response, next: NextFunction) => {
+export const currentUser = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     if (!req.session?.jwt) {
         return next();
     }
 
     try {
-        const payload = jwt.verify(req.session.jwt, process.env.JWT_JEY!) as UserPayload
+        const payload = jwt.verify(
+            req.session.jwt,
+            process.env.JWT_KEY!
+        ) as UserPayload;
         req.currentUser = payload;
     } catch (err) { }
 
