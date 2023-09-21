@@ -4,9 +4,7 @@ import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { User } from '../models/user';
-import { RequestValidationError } from '../errors/request-validation-error';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validateRequest } from '../middleware/validate-request';
+import { validateRequest, BadRequestError } from '@ejsmtickets/common';
 
 const router = express.Router();
 
